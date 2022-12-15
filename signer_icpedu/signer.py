@@ -53,63 +53,62 @@ class Sign:
             print("Invalid Input")
             return False
 
-   
+    def certificadoContainsExtension(self):
+        if('.p12' in self.certificatePath):
+            return self.certificatePath
+        else:
+            return self.certificatePath + '.p12'
 
+    def pdfContainsExtension(self):
+        if('.pdf' in self.filePath):
+            return self.filePath
+        else:
+            return self.filePath + '.pdf'
 
-    # def certificadoContainsExtension(certificatePath):
-    #     if('.p12' in certificatePath):
-    #         return certificatePath
-    #     else:
-    #         return certificatePath + '.p12'
-
-    # def pdfContainsExtension(pdfPath):
-    #     if('.pdf' in pdfPath):
-    #         return pdfPath
-    #     else:
-    #         return pdfPath + '.pdf'
-
-    # def signFile(email, password, filePath, certificatePath):
+    def signFile(self):
         
-    #     certificatePath = certificadoContainsExtension(certificatePath)
-    #     filePath = pdfContainsExtension(filePath)
+        print(self.email)
+        print("ENTROU EM SIGNFILE")
+        certificatePath = self.certificadoContainsExtension()
+        filePath = self.pdfContainsExtension()
 
-    #     date = datetime.datetime.utcnow() - datetime.timedelta(hours=12)
-    #     date = date.strftime('%Y%m%d%H%M%S+00\'00\'')
+        date = datetime.datetime.utcnow() - datetime.timedelta(hours=12)
+        date = date.strftime('%Y%m%d%H%M%S+00\'00\'')
 
-    #     dct = {
-    #         "aligned": 0,
-    #         "sigflags": 3,
-    #         "sigflagsft": 132,
-    #         "sigpage": 0,
-    #         "sigbutton": True,
-    #         "sigfield": "Signature1",
-    #         "auto_sigfield": True,
-    #         "sigandcertify": True,
-    #     # "signaturebox": (5, 805, 35, 835),
-    #     # "signature_img": "selo.jpg",
-    #         'contact': email,
-    #         'location': 'Brazil',
-    #         'signingdate': date,
-    #         'reason': 'Autoria do documento',
-    #         "password": password,
-    #     }
+        dct = {
+            "aligned": 0,
+            "sigflags": 3,
+            "sigflagsft": 132,
+            "sigpage": 0,
+            "sigbutton": True,
+            "sigfield": "Signature1",
+            "auto_sigfield": True,
+            "sigandcertify": True,
+        # "signaturebox": (5, 805, 35, 835),
+        # "signature_img": "selo.jpg",
+            'contact': self.email,
+            'location': 'Brazil',
+            'signingdate': date,
+            'reason': 'Autoria do documento',
+            "password": self.password,
+        }
 
-    #     with open(certificatePath, 'rb') as fp:
-    #         p12 = pkcs12.load_key_and_certificates(
-    #             fp.read(), 
-    #             password.encode("ascii"), 
-    #             backends.default_backend()
-    #         )
+        with open(certificatePath, 'rb') as fp:
+            p12 = pkcs12.load_key_and_certificates(
+                fp.read(), 
+                self.password.encode("ascii"), 
+                backends.default_backend()
+            )
             
-    #     datau = open(filePath, "rb").read()
-    #     datas = cms.sign(datau, dct, p12[0], p12[1], p12[2], "sha256")
-    #     with open('arquivo-assinado.pdf', "wb") as fp:
-    #         fp.write(datau)
-    #         fp.write(datas)
+        datau = open(filePath, "rb").read()
+        datas = cms.sign(datau, dct, p12[0], p12[1], p12[2], "sha256")
+        with open('arquivo-assinado.pdf', "wb") as fp:
+            fp.write(datau)
+            fp.write(datas)
 
 
 def main():
-    sign = Sign("kemuel@sal.com", "20sasd0", "asasds", "sadsda")
-    print(sign.email)
+    sign = Sign("kemuel@gmail.com", "Kemuel20", "pdf", "kemuel")
+    sign.signFile()
         
 main()
