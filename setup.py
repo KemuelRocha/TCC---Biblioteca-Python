@@ -15,4 +15,4 @@ setup(name='wrapper-panda-video',
     keywords='signer icpedu',
     description=u'Package para assinaturas digitais',
     packages=['signer_icpedu'],
-    install_requires=['cryptography','endesive'])
+    install_requires=[r.strip() for r in open('requirements.txt').read().splitlines()])
