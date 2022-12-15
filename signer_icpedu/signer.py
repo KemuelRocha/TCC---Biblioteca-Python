@@ -1,33 +1,36 @@
 import sys
 import datetime
 import re
-# from cryptography.hazmat import backends
-# from cryptography.hazmat.primitives.serialization import pkcs12
-# from endesive.pdf import pdf
-# from endesive.pdf import cms
+from cryptography.hazmat import backends
+from cryptography.hazmat.primitives.serialization import pkcs12
+from endesive.pdf import pdf
+from endesive.pdf import cms
 
 
 class Sign:
 
     def __init__(self, email, password, filePath, certificatePath):
-        isValidEmail = self.setEmail(email)
-        isValidPassword = self.setPassword(password)
+        self.email = email
+        self.password = password
         self.filePath = filePath
         self.certificatePath = certificatePath
 
+        isValidEmail = self.setEmail(email)
+        isValidPassword = self.setPassword(password)
         if (not isValidEmail) or (not isValidPassword):
             print("ALGO ERRADO")
             raise Exception("Email inválido")
 
-    def initialize(self, email, password, filePath, certificatePath):
-        isValidEmail = self.setEmail(email)
-        isValidPassword = self.setPassword(password)
-        self.filePath = filePath
-        self.certificatePath = certificatePath
 
-        if (not isValidEmail) or (not isValidPassword):
-            print("ALGO ERRADO")
-            raise Exception("Email inválido")
+    # def initialize(self, email, password, filePath, certificatePath):
+    #     isValidEmail = self.setEmail(email)
+    #     isValidPassword = self.setPassword(password)
+    #     self.filePath = filePath
+    #     self.certificatePath = certificatePath
+
+    #     if (not isValidEmail) or (not isValidPassword):
+    #         print("ALGO ERRADO")
+    #         raise Exception("Email inválido")
 
 
     def setEmail(self, email):
@@ -107,14 +110,6 @@ class Sign:
 
 def main():
     sign = Sign("kemuel@sal.com", "20sasd0", "asasds", "sadsda")
-    sign.initialize("kemuel@sal.com", "20sasd0", "asasds", "sadsda")
-
-    print(Sign)
+    print(sign.email)
         
-    # an = Sign()
-    # attrs = vars(an)
-    # # {'kids': 0, ':name' 'Dog', 'color': 'Spotted', 'age': 10, 'legs': 2, 'smell': 'Alot'}
-    # # now dump this in some way or another
-    # print(', '.join("%s: %s" % item for item in attrs.items()))
-
 main()
