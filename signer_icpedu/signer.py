@@ -20,19 +20,8 @@ class Sign:
         if (not isValidEmail) or (not isValidPassword):
             print("ALGO ERRADO")
             raise Exception("Email inválido")
-
-
-    # def initialize(self, email, password, filePath, certificatePath):
-    #     isValidEmail = self.setEmail(email)
-    #     isValidPassword = self.setPassword(password)
-    #     self.filePath = filePath
-    #     self.certificatePath = certificatePath
-
-    #     if (not isValidEmail) or (not isValidPassword):
-    #         print("ALGO ERRADO")
-    #         raise Exception("Email inválido")
-
-
+    
+    # Verificador do formato do email 
     def setEmail(self, email):
         regex = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
         if(re.fullmatch(regex, email)):
@@ -44,6 +33,7 @@ class Sign:
             # raise Exception("Email inválido")
             return False    
     
+    # Verificador se a senha está em branco
     def setPassword(self, password):
         if len(password) > 0: 
             print("Valid Input")
@@ -66,9 +56,7 @@ class Sign:
             return self.filePath + '.pdf'
 
     def signFile(self):
-        
-        print(self.email)
-        print("ENTROU EM SIGNFILE")
+        # 
         certificatePath = self.certificadoContainsExtension()
         filePath = self.pdfContainsExtension()
 
@@ -84,8 +72,9 @@ class Sign:
             "sigfield": "Signature1",
             "auto_sigfield": True,
             "sigandcertify": True,
-        # "signaturebox": (5, 805, 35, 835),
-        # "signature_img": "selo.jpg",
+            # "signaturebox": (470, 840, 570, 640),
+            # "signature": "Assinado digitalmente por: \n\n  ",
+            # "signature_img": "selo.jpg",
             'contact': self.email,
             'location': 'Brazil',
             'signingdate': date,
@@ -106,9 +95,39 @@ class Sign:
             fp.write(datau)
             fp.write(datas)
 
+    # def verifySignature(self):
+    #     certificatePath = self.certificadoContainsExtension()
+    #     trusted_cert_pems = (
+    #         open(certificatePath, 'rb').read(),
+    #     )
+    #     data = open("arquivo-assinado.pdf", "rb").read()
+        
+    #     no = 0
+    #     for (hashok, signatureok, certok) in pdf.verify(
+    #         data, trusted_cert_pems, "/etc/ssl/certs"
+    #     ):
+    #         print("*" * 10, "signature no:", no)
+    #         print("signature ok?", signatureok)
+    #         print("hash ok?", hashok)
+    #         print("cert ok?", certok)
+
+
+    # def verificar_assinatura_string(self, message, signature):
+    #         public_key = self.certificado.key.public_key()
+    #         return public_key.verify(
+    #             signature,
+    #             message,
+    #             padding.PSS(
+    #                 mgf=padding.MGF1(hashes.SHA1()),
+    #                 salt_length=padding.PSS.MAX_LENGTH
+    #             ),
+    #             hashes.SHA1()
+    #         )
+
 
 def main():
     sign = Sign("kemuel@gmail.com", "Kemuel20", "pdf", "kemuel")
     sign.signFile()
+    
         
 main()
