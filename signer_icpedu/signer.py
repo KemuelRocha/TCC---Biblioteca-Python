@@ -21,18 +21,6 @@ class Sign:
             print("ALGO ERRADO")
             raise Exception("Email inválido")
 
-
-    # def initialize(self, email, password, filePath, certificatePath):
-    #     isValidEmail = self.setEmail(email)
-    #     isValidPassword = self.setPassword(password)
-    #     self.filePath = filePath
-    #     self.certificatePath = certificatePath
-
-    #     if (not isValidEmail) or (not isValidPassword):
-    #         print("ALGO ERRADO")
-    #         raise Exception("Email inválido")
-
-
     def setEmail(self, email):
         regex = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
         if(re.fullmatch(regex, email)):
