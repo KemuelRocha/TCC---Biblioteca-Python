@@ -3,8 +3,9 @@ import datetime
 import re
 from cryptography.hazmat import backends
 from cryptography.hazmat.primitives.serialization import pkcs12
-from endesive.pdf import pdf
+from endesive import pdf
 from endesive.pdf import cms
+from endesive import verifier
 
 
 class Sign:
@@ -88,46 +89,66 @@ class Sign:
                 self.password.encode("ascii"), 
                 backends.default_backend()
             )
-            
+
         datau = open(filePath, "rb").read()
         datas = cms.sign(datau, dct, p12[0], p12[1], p12[2], "sha256")
         with open('arquivo-assinado.pdf', "wb") as fp:
             fp.write(datau)
             fp.write(datas)
 
-    # def verifySignature(self):
-    #     certificatePath = self.certificadoContainsExtension()
-    #     trusted_cert_pems = (
-    #         open(certificatePath, 'rb').read(),
-    #     )
-    #     data = open("arquivo-assinado.pdf", "rb").read()
+    def verifySignature(self):
         
-    #     no = 0
-    #     for (hashok, signatureok, certok) in pdf.verify(
-    #         data, trusted_cert_pems, "/etc/ssl/certs"
-    #     ):
-    #         print("*" * 10, "signature no:", no)
-    #         print("signature ok?", signatureok)
-    #         print("hash ok?", hashok)
-    #         print("cert ok?", certok)
+        trusted_cert_pems = (
+            open("./ac/ac-pessoa.cer", "rb").read(),
+            open("./ac/ac-raiz-v3.cer", "rb").read(),
+        )
+        pdf_file_path = "./arquivo-assinado.pdf"
+        data = open(pdf_file_path, "rb").read()
+        for (hashok, signatureok, certok) in pdf.verify(
+            data, trusted_cert_pems
+        ):
+            print("*" * 20)
+            print("signature ok?", signatureok)
+            print("hash ok?", hashok)
+            print("cert ok?", certok)
+        
+    # def verify(pdf):
+    #     certs = (
+    #         open("./ac/ac-pessoa.cer", "rb").read(),
+    #         open("./ac/ac-raiz-v3.cer", "rb").read(),
+    #     )
+    #     pdfdata = open(pdf, "rb").read()
+    #     results = []
+    #     n = pdfdata.find(b"/ByteRange")
+    #     while n != -1:
+    #         start = pdfdata.find(b"[", n)
+    #         stop = pdfdata.find(b"]", start)
+    #         assert n != -1 and start != -1 and stop != -1
+    #         br = [int(i, 10) for i in pdfdata[start + 1 : stop].split()]
+    #         contents = pdfdata[br[0] + br[1] + 1 : br[2] - 1]
+    #         bcontents = bytes.fromhex(contents.decode("utf8"))
+    #         data1 = pdfdata[br[0] : br[0] + br[1]]
+    #         data2 = pdfdata[br[2] : br[2] + br[3]]
+    #         signedData = data1 + data2
 
+    #         result = verifier.verify(bcontents, signedData, certs)
+    #         results.append(result)
+    #         n = pdfdata.find(b"/ByteRange", br[2] + br[3])
 
-    # def verificar_assinatura_string(self, message, signature):
-    #         public_key = self.certificado.key.public_key()
-    #         return public_key.verify(
-    #             signature,
-    #             message,
-    #             padding.PSS(
-    #                 mgf=padding.MGF1(hashes.SHA1()),
-    #                 salt_length=padding.PSS.MAX_LENGTH
-    #             ),
-    #             hashes.SHA1()
-    #         )
+    #         for (hashok, signatureok, certok) in results(
+    #         data, trusted_cert_pems
+    #         ):
+    #             print("*" * 10, "signature no:", no)
+    #             print("signature ok?", signatureok)
+    #             print("hash ok?", hashok)
+    #             print("cert ok?", certok)
+    #     return results
 
 
 def main():
     sign = Sign("kemuel@gmail.com", "Kemuel20", "pdf", "kemuel")
-    sign.signFile()
-    
+    # sign.signFile()
+    sign.verifySignature()
+    # sign.verify("./arquivo-assinado.pdf")
         
 main()
