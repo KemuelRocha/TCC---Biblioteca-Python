@@ -55,6 +55,7 @@ class Sign:
         else:
             return self.filePath + '.pdf'
 
+            
     def signFile(self):
         # 
         certificatePath = self.certificadoContainsExtension()
@@ -148,7 +149,7 @@ class Sign:
 def main():
     sign = Sign("kemuel@gmail.com", "Kemuel20", "pdf", "kemuel")
     # sign.signFile()
-    sign.verifySignature()
+    # sign.verifySignature()
     # sign.verify("./arquivo-assinado.pdf")
         
 main()
