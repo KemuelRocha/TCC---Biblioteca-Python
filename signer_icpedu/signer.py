@@ -64,6 +64,13 @@ class Sign:
         date = datetime.datetime.utcnow() - datetime.timedelta(hours=12)
         date = date.strftime('%Y%m%d%H%M%S+00\'00\'')
 
+        class User:
+            full_name = 'Kemuel dos Santos Rocha'
+            email = self.email
+            company = 'ICPEdu'
+            cpf = '11389719448'
+        user = User()
+
         dct = {
             "aligned": 0,
             "sigflags": 3,
@@ -72,10 +79,19 @@ class Sign:
             "sigbutton": True,
             "sigfield": "Signature1",
             "auto_sigfield": True,
+            "signform": False,
             "sigandcertify": True,
-            # "signaturebox": (470, 840, 570, 640),
-            # "signature": "Assinado digitalmente por: \n\n  ",
-            # "signature_img": "selo.jpg",
+            "signaturebox": (40, 110, 260, 190),
+            "signature_manual": [
+                ['text_box', f'Assinado de forma digital por: {user.full_name}\nCPF: {user.cpf}\nEmail: {user.email}\nData: {date}\nAutoridade Certificadora: {user.company}',
+                    'default', 5, 10, 270, 40, 7, True, 'left', 'top'],
+                ['fill_colour', 0.4, 0.4, 0.4],
+                ['rect_fill', 0, 50, 250, 1],
+                ['fill_colour', 0, 0, 0],
+                ['text_box', user.full_name,
+                    'DancingScript', 7, 25, 270, 50, 12, True, 'left', 'top', 1.2],
+                ],
+            # "signature_img": "image.jpg",
             'contact': self.email,
             'location': 'Brazil',
             'signingdate': date,
@@ -148,7 +164,7 @@ class Sign:
 
 def main():
     sign = Sign("kemuel@gmail.com", "Kemuel20", "pdf", "kemuel")
-    # sign.signFile()
+    sign.signFile()
     # sign.verifySignature()
     # sign.verify("./arquivo-assinado.pdf")
         
