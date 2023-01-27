@@ -5,6 +5,9 @@ from cryptography.hazmat import backends
 from cryptography.hazmat.primitives.serialization import pkcs12
 from endesive import pdf
 from endesive.pdf import cms
+from cryptography import x509
+from OpenSSL import crypto
+from cryptography.hazmat.backends import default_backend
 # from endesive import verifier
 
 
@@ -54,7 +57,6 @@ class Sign:
             return self.filePath
         else:
             return self.filePath + '.pdf'
-
             
     def signFile(self):
         # 
@@ -63,12 +65,20 @@ class Sign:
 
         date = datetime.datetime.utcnow() - datetime.timedelta(hours=12)
         date = date.strftime('%Y%m%d%H%M%S+00\'00\'')
+  
+        aux_p12 = crypto.load_pkcs12(open(certificatePath, "rb").read(), self.password.encode("ascii"))
+        pem_data = crypto.dump_certificate(crypto.FILETYPE_PEM, aux_p12.get_certificate())
+        cert = x509.load_pem_x509_certificate(pem_data, default_backend())
 
+        common_name = cert.subject.get_attributes_for_oid(x509.OID_COMMON_NAME)[0].value
+        country_name = cert.subject.get_attributes_for_oid(x509.OID_COUNTRY_NAME)[0].value
+        organization_name = cert.subject.get_attributes_for_oid(x509.OID_ORGANIZATION_NAME)[0].value
+        
+        
         class User:
-            full_name = 'Kemuel dos Santos Rocha'
+            full_name = common_name
             email = self.email
-            company = 'ICPEdu'
-            cpf = '11389719448'
+            company = organization_name
         user = User()
 
         dct = {
@@ -83,7 +93,7 @@ class Sign:
             "sigandcertify": True,
             "signaturebox": (40, 110, 260, 190),
             "signature_manual": [
-                ['text_box', f'Assinado de forma digital por: {user.full_name}\nCPF: {user.cpf}\nEmail: {user.email}\nData: {date}\nAutoridade Certificadora: {user.company}',
+                ['text_box', f'Assinado de forma digital por: \n{user.full_name}\nEmail: {user.email}\nData: {date}\nAutoridade Certificadora: {user.company}',
                     'default', 5, 10, 270, 40, 7, True, 'left', 'top'],
                 ['fill_colour', 0.4, 0.4, 0.4],
                 ['rect_fill', 0, 50, 250, 1],
@@ -93,9 +103,9 @@ class Sign:
                 ],
             # "signature_img": "image.jpg",
             'contact': self.email,
-            'location': 'Brazil',
+            'location': country_name,
             'signingdate': date,
-            'reason': 'Autoria do documento',
+            'reason': user.full_name,
             "password": self.password,
         }
 
@@ -167,5 +177,7 @@ def main():
     sign.signFile()
     # sign.verifySignature()
     # sign.verify("./arquivo-assinado.pdf")
-        
+    # sign.referenceCert()
+
+
 main()
