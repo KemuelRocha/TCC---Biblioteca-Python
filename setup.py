@@ -5,7 +5,7 @@ from setuptools import setup
 with open("README.md", "r") as arq:
     readme = arq.read()
 
-setup(name='wrapper-panda-video',
+setup(name='signer_icpedu',
     version='0.0.1',
     license='MIT License',
     author='Kemuel Rocha',
