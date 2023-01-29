@@ -124,7 +124,7 @@ class Verifier():
     def __init__(self) -> None:
         pass
 
-    def pdfContainsExtension(filePath):
+    def pdfContainsExtension(self, filePath):
         if('.pdf' in filePath):
             return filePath
         else:

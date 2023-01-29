@@ -14,17 +14,17 @@ pip install signer_icepedu
 
 Para utilizar as funcionalidades da o _package_, importe com o seguinte código:
 ```python
-from signer_icpedu import Sign, Verifier 
+from signer_icpedu import signer 
 ```
 
 Para instanciar a classe responsável pelos métodos de assinatura digital, basta declarar uma variável recebendo _Sign_ da seguinte forma:
 ```python
-var = Sign()
+var = signer.Sign()
 ```
 
 Para instanciar a classe responsável pelos métodos de verificação de assinaturas digitais, basta declarar uma variável recebendo _Verifier_ da seguinte forma:
 ```python
-var = Verify()
+var = signer.Verify()
 ```
 
 Finalmente para utilizar para assinar um pdf, basta chamar a função _signFile_ passando os parametros solicitados como por exemplo:

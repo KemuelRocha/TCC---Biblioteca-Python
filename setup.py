@@ -1,12 +1,11 @@
 from setuptools import setup
 
-from setuptools import setup
 
 with open("README.md", "r") as arq:
     readme = arq.read()
 
-setup(name='signer-icpedu',
-    version='0.0.1',
+setup(name='signer-icpedu2',
+    version='0.0.3',
     license='MIT License',
     author='Kemuel dos Santos Rocha',
     long_description=readme,
@@ -15,4 +14,5 @@ setup(name='signer-icpedu',
     keywords='signer icpedu',
     description=u'Package para assinaturas digitais',
     packages=['signer_icpedu'],
-    install_requires=[r.strip() for r in open('requirements.txt').read().splitlines()])
+    install_requires=["cryptography", "endesive", "pyOpenSSL"])
+    # install_requires=[r.strip() for r in open('requirements.txt').read().splitlines()])
