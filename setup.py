@@ -5,7 +5,7 @@ with open("README.md", "r") as arq:
     readme = arq.read()
 
 setup(name='signer-icpedu2',
-    version='0.0.3',
+    version='0.0.5',
     license='MIT License',
     author='Kemuel dos Santos Rocha',
     long_description=readme,
