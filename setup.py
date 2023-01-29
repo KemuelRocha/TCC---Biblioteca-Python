@@ -5,13 +5,13 @@ from setuptools import setup
 with open("README.md", "r") as arq:
     readme = arq.read()
 
-setup(name='signer_icpedu',
+setup(name='signer-icpedu',
     version='0.0.1',
     license='MIT License',
-    author='Kemuel Rocha',
+    author='Kemuel dos Santos Rocha',
     long_description=readme,
     long_description_content_type="text/markdown",
-    author_email='kemuelsr@gmail.com',
+    author_email='kemuel.rocha@discente.univasf.edu.br',
     keywords='signer icpedu',
     description=u'Package para assinaturas digitais',
     packages=['signer_icpedu'],
