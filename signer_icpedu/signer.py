@@ -130,12 +130,16 @@ class Verifier():
         else:
             return filePath + '.pdf'
 
-    def verifySignature(self, filePath):
+    def verifySignature(self, filePath, ac1, ac2):
         filePath = self.pdfContainsExtension(filePath)
         result = False
+        # trusted_cert_pems = (
+        #     open("./ac/ac-pessoa.cer", "rb").read(), 
+        #     open("./ac/ac-raiz-v3.cer", "rb").read(),
+        # )
         trusted_cert_pems = (
-            open("./ac/ac-pessoa.cer", "rb").read(),
-            open("./ac/ac-raiz-v3.cer", "rb").read(),
+            open(ac1, "rb").read(), 
+            open(ac2, "rb").read(),
         )
         pdf_file_path = filePath
         data = open(pdf_file_path, "rb").read()
@@ -152,4 +156,10 @@ class Verifier():
             return True
         else:
             return False
-        
+    
+def main():
+        x = Verifier()
+        print(x.verifySignature("arquivo-assinado", "ac-pessoa.cer", "ac-raiz-v3.cer"))
+    
+
+main()

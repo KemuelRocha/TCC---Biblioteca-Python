@@ -8,7 +8,7 @@ O **signer_icpedu** é uma biblioteca para fins educativos e possibilita a assin
 
 Para fazer a instalação da biblioteca, basta executar o comando abaixo:
 ```python
-pip install signer_icepedu
+pip install signer-icpedu
 ```
 ## Como importar as classes e métodos da biblioteca
 
@@ -34,5 +34,6 @@ var.signFile("email", "password", "filePath", "certificatePath")
 
 De modo semelhante, para verificar um pdf, basta chamar a função _verifySignature_ passando os parametros solicitados como por exemplo:
 ```python
-var.verifySignature("pdf")
+var.verifySignature("pdf","certifying authority_1", "certifying authority_2")
 ```
+Os certificados de autoridades certificadoras são arquivos que vem juntos ao certificado pessoal exportado pelo ICPEdu
