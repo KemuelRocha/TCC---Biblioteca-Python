@@ -132,7 +132,6 @@ class Verifier():
 
     def verifySignature(self, filePath, ac1, ac2):
         filePath = self.pdfContainsExtension(filePath)
-        result = False
         # trusted_cert_pems = (
         #     open("./ac/ac-pessoa.cer", "rb").read(), 
         #     open("./ac/ac-raiz-v3.cer", "rb").read(),
@@ -143,23 +142,13 @@ class Verifier():
         )
         pdf_file_path = filePath
         data = open(pdf_file_path, "rb").read()
-        for (hashok, signatureok, certok) in pdf.verify(
+
+        for (signatureok, hashok, certok) in pdf.verify(
                 data, trusted_cert_pems
             ):
                 print("*" * 20)
-                result = signatureok
                 print("signature ok?", signatureok)
                 print("hash ok?", hashok)
                 print("cert ok?", certok)
-
-        if result==True:
-            return True
-        else:
-            return False
-    
-def main():
-        x = Verifier()
-        print(x.verifySignature("arquivo-assinado", "ac-pessoa.cer", "ac-raiz-v3.cer"))
-    
-
-main()
+                return True
+        return False

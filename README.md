@@ -1,6 +1,6 @@
-# SIGNER ICPEDU
+# DIGITAL SIGNER
 
-O **signer_icpedu** é uma ferramenta para Assinaturas Digitais utilizando Certificado ICPEdu. Esse _package_ foi desenvolvido como um artefato complementar ao trabalho de conclusão de curso do aluno **Kemuel dos Santos Rocha** para obtenção do grau de Bacharelado em Engenharia da Computação.
+O **digital_signer** é uma ferramenta para Assinaturas Digitais utilizando Certificado ICPEdu. Esse _package_ foi desenvolvido como um artefato complementar ao trabalho de conclusão de curso do aluno **Kemuel dos Santos Rocha** para obtenção do grau de Bacharelado em Engenharia da Computação.
 
 O **signer_icpedu** é uma biblioteca para fins educativos e possibilita a assinatura de documentos em formato _.pdf_, assim como também a verificação da assinatura digital.
 
