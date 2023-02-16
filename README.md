@@ -1,20 +1,19 @@
-# DIGITAL SIGNER
+# ICPyEdu
+O **ICPyEdu** é uma ferramenta para Assinaturas Digitais utilizando Certificado ICPEdu. Esse _package_ foi desenvolvido como um artefato complementar ao trabalho de conclusão de curso do aluno **Kemuel dos Santos Rocha** para obtenção do grau de Bacharelado em Engenharia da Computação.
 
-O **digital_signer** é uma ferramenta para Assinaturas Digitais utilizando Certificado ICPEdu. Esse _package_ foi desenvolvido como um artefato complementar ao trabalho de conclusão de curso do aluno **Kemuel dos Santos Rocha** para obtenção do grau de Bacharelado em Engenharia da Computação.
-
-O **signer_icpedu** é uma biblioteca para fins educativos e possibilita a assinatura de documentos em formato _.pdf_, assim como também a verificação da assinatura digital.
+O **ICPyEdu** é uma biblioteca para fins educativos e possibilita a assinatura de documentos em formato _.pdf_, assim como também a verificação da assinatura digital.
 
 ## Como instalar a biblioteca
 
 Para fazer a instalação da biblioteca, basta executar o comando abaixo:
 ```python
-pip install signer-icpedu
+pip install icpyedu
 ```
 ## Como importar as classes e métodos da biblioteca
 
 Para utilizar as funcionalidades da o _package_, importe com o seguinte código:
 ```python
-from signer_icpedu import signer 
+from icpyedu import signer 
 ```
 
 Para instanciar a classe responsável pelos métodos de assinatura digital, basta declarar uma variável recebendo _Sign_ da seguinte forma:
