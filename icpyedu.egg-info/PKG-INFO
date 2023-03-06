@@ -1,3 +1,14 @@
+Metadata-Version: 2.1
+Name: icpyedu
+Version: 0.0.2
+Summary: Package para assinaturas digitais
+Author: Kemuel dos Santos Rocha
+Author-email: kemuel.rocha@discente.univasf.edu.br
+License: MIT License
+Keywords: signer icpedu icpyedu
+Description-Content-Type: text/markdown
+License-File: LICENCE
+
 # ICPyEdu
 **ICPyEdu** is a tool for Digital Signatures using ICPEdu Certificate. This _package_ was developed as a complementary artifact to the completion of the course work of the student **Kemuel dos Santos Rocha** to obtain the Bachelor's degree in Computer Engineering.
 
